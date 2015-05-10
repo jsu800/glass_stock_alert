@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <!-- filters -->
+  <filter>
+    <filter-name>authFilter</filter-name>
+    <filter-class>com.nbcu.medialabs.AuthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>authFilter</filter-name>
+    <url-pattern>/main</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>reauthFilter</filter-name>
+    <filter-class>com.nbcu.medialabs.ReauthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>reauthFilter</filter-name>
+    <url-pattern>/main</url-pattern>
+  </filter-mapping>
+    
+  <servlet>
+    <servlet-name>main</servlet-name>
+    <servlet-class>com.nbcu.medialabs.MainServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>main</servlet-name>
+    <url-pattern>/main</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>cron</servlet-name>
+    <servlet-class>com.nbcu.medialabs.CronServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cron</servlet-name>
+    <url-pattern>/cron</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>oauth2callback</servlet-name>
+    <servlet-class>com.nbcu.medialabs.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>oauth2callback</servlet-name>
+    <url-pattern>/oauth2callback</url-pattern>
+  </servlet-mapping>	
+	
+ <servlet>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+  <init-param>
+   <param-name>services</param-name>
+   <param-value/>
+  </init-param>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>SystemServiceServlet</servlet-name>
+  <url-pattern>/_ah/spi/*</url-pattern>
+ </servlet-mapping>
+ 
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>cron</web-resource-name>
+        <url-pattern>/cron/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+    </auth-constraint>
+</security-constraint>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+ 
+
+</web-app>
