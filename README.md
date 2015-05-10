@@ -19,3 +19,5 @@ NB: there's minimal client installation involved other than going through the st
 http://cnbc-news-alerts.appspot.com/
 
 to ensure that client is equipped with the News appesults 
+
+![](https://github.com/jsu800/glass_stock_alert/blob/master/image/cnbc%20news%20alert%20app%20page.png)
