@@ -1,4 +1,5 @@
 /*
+ * Based on the Apache License below:
  * Copyright (C) 2013 Google Inc.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -30,52 +31,55 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * A filter which ensures that prevents unauthenticated users from accessing the
  * web app
- *
+ * 
  * @author Jenny Murphy - http://google.com/+JennyMurphy
  */
 public class AuthFilter implements Filter {
-  private static final Logger LOG = Logger.getLogger(AuthFilter.class.getSimpleName());
+	private static final Logger LOG = Logger.getLogger(AuthFilter.class
+			.getSimpleName());
 
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-      throws IOException, ServletException {
-    if (response instanceof HttpServletResponse && request instanceof HttpServletRequest) {
-      HttpServletRequest httpRequest = (HttpServletRequest) request;
-      HttpServletResponse httpResponse = (HttpServletResponse) response;
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain filterChain) throws IOException, ServletException {
+		if (response instanceof HttpServletResponse
+				&& request instanceof HttpServletRequest) {
+			HttpServletRequest httpRequest = (HttpServletRequest) request;
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-      // skip auth for static content, middle of auth flow, notify servlet
-      String uri = httpRequest.getRequestURI();
-      
-      if (uri.startsWith("/static") ||
-          uri.equals("/oauth2callback") ||
-          uri.equals("/notify")) {
-        LOG.info("Skipping auth check during auth flow");
-        filterChain.doFilter(request, response);
-        return;
-      }
+			// skip auth for static content, middle of auth flow, notify servlet
+			String uri = httpRequest.getRequestURI();
 
-      LOG.fine("Checking to see if anyone is logged in");
-      if (AuthUtil.getUserId(httpRequest) == null
-          || AuthUtil.getCredential(AuthUtil.getUserId(httpRequest)) == null
-          || AuthUtil.getCredential(AuthUtil.getUserId(httpRequest)).getAccessToken() == null) {
-        // redirect to auth flow
-        httpResponse.sendRedirect(WebUtil.buildUrl(httpRequest, "/oauth2callback"));
-        return;
-      }
+			if (uri.startsWith("/static") || uri.equals("/oauth2callback")
+					|| uri.equals("/notify")) {
+				LOG.info("Skipping auth check during auth flow");
+				filterChain.doFilter(request, response);
+				return;
+			}
 
-      // Things checked out OK :)
-      filterChain.doFilter(request, response);
-      
-    } else {
-      LOG.warning("Unexpected non HTTP servlet response. Proceeding anyway.");
-      filterChain.doFilter(request, response);
-    }
-  }
+			LOG.fine("Checking to see if anyone is logged in");
+			if (AuthUtil.getUserId(httpRequest) == null
+					|| AuthUtil.getCredential(AuthUtil.getUserId(httpRequest)) == null
+					|| AuthUtil.getCredential(AuthUtil.getUserId(httpRequest))
+							.getAccessToken() == null) {
+				// redirect to auth flow
+				httpResponse.sendRedirect(WebUtil.buildUrl(httpRequest,
+						"/oauth2callback"));
+				return;
+			}
 
-  @Override
-  public void init(FilterConfig filterConfig) throws ServletException {
-  }
+			// Things checked out OK :)
+			filterChain.doFilter(request, response);
 
-  @Override
-  public void destroy() {
-  }
+		} else {
+			LOG.warning("Unexpected non HTTP servlet response. Proceeding anyway.");
+			filterChain.doFilter(request, response);
+		}
+	}
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+
+	@Override
+	public void destroy() {
+	}
 }

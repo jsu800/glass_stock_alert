@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Joseph Su
+ * Copyright (c) 2013 NBCUniversal, Inc
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ import com.google.api.client.auth.oauth2.Credential;
 /**
  * Handles cron requests and processing of response. 
  * This class works under the premise of a persistent 
- * Google auth credential store
+ * Google auth credential store. The servlet runs on GAE
  * 
- * @author Joseph Su - http://google.com/+JosephSu
+ * @author Joseph Su
  */
 
 public class CronServlet extends HttpServlet {

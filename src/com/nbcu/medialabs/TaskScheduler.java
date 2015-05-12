@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Joseph Su
+ * Copyright (c) 2013 NBCUniversal, Inc
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import com.google.api.services.mirror.model.TimelineItem;
  * Handles timed task for sending timeline cards to users. 
  * The timer was disabled in place of a daemon cron job 
  * 
- * @author Joseph Su - http://google.com/+JosephSu
+ * @author Joseph Su
  */
 
 public class TaskScheduler {

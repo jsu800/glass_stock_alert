@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Joseph Su
+ * Copyright (c) 2013 NBCUniversal, Inc
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,8 +30,13 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+
+/* 
+ * Generic scrapper for fetch and trigger Glass time card when news is available. Will need to 
+ * be refactored to support notification through messaging bus in future 
+ * @author Joseph Su
+ */
 public class NewsGenerator {
-	
 	
 	private static final Logger LOG = Logger.getLogger(NewsGenerator.class.getSimpleName());
 	private static String CNBC_FEED_URL = "http://search.cnbc.com/main.do?partnerId=20048";

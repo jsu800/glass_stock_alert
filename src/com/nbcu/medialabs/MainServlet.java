@@ -49,7 +49,7 @@ import javax.servlet.http.HttpServletResponse;
  * Handles POST requests from index.jsp. Modified version of the servlet from 
  * the original author, Jenny Murphy - http://google.com/+JennyMurphy
  * 
- * @author Joseph Su - http://google.com/+JosephSu
+ * @author Joseph Su
  */
 public class MainServlet extends HttpServlet {
 
